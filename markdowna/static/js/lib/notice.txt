@@ -1,0 +1,6 @@
+I removed 
+`else if("function"==typeof define&&define.amd)define([],e);` 
+from both markdown-it.min.js and simplemde.min.js,
+since that would casue exception.
+
+`editor-preview-side` became `editor-preview-side markdown-body`
