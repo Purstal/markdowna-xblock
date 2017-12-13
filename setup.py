@@ -22,7 +22,7 @@ def package_data(pkg, roots):
 
 setup(
     name='markdowna-xblock',
-    version='0.1.33',
+    version='0.1.40',
     description='markdowna XBlock',   # TODO: write a better description.
     # TODO: choose a license: 'AGPL v3' and 'Apache 2.0' are popular.
     license='UNKNOWN',
@@ -30,7 +30,7 @@ setup(
         'markdowna',
     ],
     install_requires=[
-        'XBlock',
+        'XBlock', 'pyyaml'
     ],
     entry_points={
         'xblock.v1': [

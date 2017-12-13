@@ -57,7 +57,8 @@ function MarkdownXBlock(runtime, element) {
     });
     var data = JSON.parse(data_text);
 
-    var md = window.markdownit(/* configures */);
+    var md = window.markdownit({linkify: true});
+    md = md.use(window.front_matter_plugin);
     //$('.display-area', element).html(md.render(data.markdown_text));
 
     mde = new window.SimpleMDE({

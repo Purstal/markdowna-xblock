@@ -3,8 +3,15 @@
 
 import json
 import cgi
+import re
 
 import pkg_resources
+
+from yaml import load, dump
+try:
+    from yaml import CLoader as YAMLLoader
+except ImportError:
+    from yaml import Loader as YAMLLoader
 
 from xblock.core import XBlock
 from xblock.fields import Scope, Integer, String
@@ -55,6 +62,8 @@ class MarkdownXBlock(XBlock):
         # markdown it
         frag.add_javascript(self.resource_string(
             "static/js/lib/markdown-it_new.min.js"))
+        frag.add_javascript(self.resource_string(
+            "static/js/lib/markdown-it-front-matter.js"))
 
         # github markdown css
         frag.add_css(self.resource_string(
@@ -77,6 +86,8 @@ class MarkdownXBlock(XBlock):
         # markdown it
         frag.add_javascript(self.resource_string(
             "static/js/lib/markdown-it_new.min.js"))
+        frag.add_javascript(self.resource_string(
+            "static/js/lib/markdown-it-front-matter.js"))
 
         # simplemde
         frag.add_javascript(self.resource_string(
@@ -94,6 +105,8 @@ class MarkdownXBlock(XBlock):
         frag.initialize_js('MarkdownXBlock')
         return frag
 
+    front_matter_regex = re.compile(r"(?s)^(-{3,})(.*?)(-{3,})")
+
     @XBlock.json_handler
     def save_markdown_text(self, data, suffix=''):
         """
@@ -101,12 +114,21 @@ class MarkdownXBlock(XBlock):
         """
 
         ret = {}
+        ret["success"] = False
 
         if "markdown_text" in data:
             self.markdown_text = unicode(data["markdown_text"])
-            ret["success"] = True
-        else:
-            ret["success"] = False
+            match_data = self.front_matter_regex.match(self.markdown_text)
+            if bool(match_data) and len(match_data.group(1)) <= len(match_data.group(3)):
+                meta = load(match_data.group(2), YAMLLoader)
+                if "display-name" in meta:
+                    self.display_name = meta["display-name"]
+                else:
+                    self.display_name = "Untitled"
+                ret["success"] = True
+            else:
+                self.display_name = "Untitled"
+                ret["success"] = True
 
         return ret  # {"count": self.count}
 

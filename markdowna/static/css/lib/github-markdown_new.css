@@ -709,7 +709,7 @@
 }
 
 
-/* added by unown to  */
+/* added by unown */
 .markdown-body em {
   font-style: italic;
 }
@@ -720,4 +720,8 @@
 
 .markdown-body ul {
   list-style-type: disc;
+}
+
+.markdown-body img {
+  max-width: 35%;
 }
