@@ -52,7 +52,7 @@ projects used by this XBlock:
   * A simple, beautiful, and embeddable JavaScript Markdown editor. Delightful editing for beginners and experts alike. Features built-in autosaving and spell checking.
   * <https://simplemde.com>
   * The MIT License
-*  markdown-it
+* markdown-it
   * Markdown parser, done right. 100% CommonMark support, extensions, syntax plugins & high speed
   *  <https://markdown-it.github.io/>
   * The MIT License
