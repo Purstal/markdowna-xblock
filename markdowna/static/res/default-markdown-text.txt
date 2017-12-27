@@ -1,14 +1,14 @@
 ---
 
 ####### This is the YAML front matter
-####### you can find the usage from the readme of this XBlock
-display-name: Markdown
+
+display-name: Markdown # The display name for this component.
 
 ---
 
 # Markdown Showcase
 
-Below is modified from <https://markdown-it.github.io>
+The following are markdown features supported by this xblock, modified from <https://markdown-it.github.io>
 
 ## Headers
 
